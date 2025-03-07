@@ -32,3 +32,7 @@ class data():
         plt.axis('off')
         plt.show()
     
+test = data()
+test.data_loader()
+test.preview_image()
+
