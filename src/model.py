@@ -2,9 +2,12 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class AgePredictionCNN(nn.Module):
-    def __init__(self, num_age_bins=3, input_size=128):
+    def __init__(self, num_age_bins=3, input_size=128, sqeeze=False):
         super().__init__()
+
+        self.squeeze = sqeeze
 
         # Convolutional layers
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, stride=1, padding=1)
@@ -42,6 +45,9 @@ class AgePredictionCNN(nn.Module):
         x = F.relu(self.fc2(x))
         x = self.dropout2(x)
 
-        # Output layer (no softmax needed with CrossEntropyLoss)
-        x = self.fc3(x)
+        if self.squeeze:
+            x = self.fc3(x).squeeze(-1)
+        else:
+            # Output layer (no softmax needed with CrossEntropyLoss)
+            x = self.fc3(x)
         return x  # Output logits
