@@ -18,6 +18,7 @@ class AgeDataset(Dataset):
         """
         self.data = data
         self.transform = transform
+        self.label_dtype = label_dtype
 
     def __len__(self):
         return len(self.data)
@@ -31,9 +32,9 @@ class AgeDataset(Dataset):
             image = self.transform(image)
 
         # Convert label to tensor
-        if label_dtype=="long": # for CrossEntropyLoss
+        if self.label_dtype=="long": # for CrossEntropyLoss
             label = torch.tensor(label, dtype=torch.long)
-        elif label_dtype=="float32": # for BCEWithLogitsLoss
+        elif self.label_dtype=="float32": # for BCEWithLogitsLoss
             label = torch.tensor(label, dtype=torch.float32)
         return image, label
 
