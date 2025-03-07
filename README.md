@@ -167,7 +167,7 @@ train_loader, val_loader, test_loader = dataset_manager.get_data_loaders(
   This will help in tracking experiments and understanding what works best.
 
 
-### *** Save the Model***
+### Option: Save the Model and Results
 To save (model/) experiment results:
 - **Save model weights:**
   ```python
