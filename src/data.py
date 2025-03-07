@@ -1,6 +1,6 @@
 # Description: This file contains the AgeDataset class and AgeDatasetManager class. The AgeDataset class is used to load images and labels, while the AgeDatasetManager class is used to manage the dataset and create data loaders for training, validation, and testing.
 import pandas as pd
-# import torch
+import torch
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader, random_split
 from PIL import Image
@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 class AgeDataset(Dataset):
-    def __init__(self, data, transform=None):
+    def __init__(self, data, transform=None, label_dtype=None):
         """
         PyTorch Dataset class for loading images and labels.
 
@@ -30,11 +30,16 @@ class AgeDataset(Dataset):
         if self.transform:
             image = self.transform(image)
 
+        # Convert label to tensor
+        if label_dtype=="long": # for CrossEntropyLoss
+            label = torch.tensor(label, dtype=torch.long)
+        elif label_dtype=="float32": # for BCEWithLogitsLoss
+            label = torch.tensor(label, dtype=torch.float32)
         return image, label
 
 # Data Preprocessing
 class AgeDatasetManager:
-    def __init__(self, csv_path=CSV_PATH, age_bins=None, age_labels=None):
+    def __init__(self, csv_path=CSV_PATH, age_bins=None, age_labels=None, label_dtype=None):
         """
         Initializes the dataset manager based on ageutk_data.csv.
 
@@ -44,6 +49,7 @@ class AgeDatasetManager:
         self.data = pd.read_csv(csv_path)
         self.age_bins = age_bins
         self.age_labels = age_labels
+        self.label_dtype = label_dtype
 
         # Process data immediately
         self.clean_data()
@@ -113,7 +119,7 @@ class AgeDatasetManager:
             ])
 
         # Create datasets with different transforms
-        dataset = AgeDataset(self.data, transform=None)  # No transform yet
+        dataset = AgeDataset(self.data, transform=None, label_dtype=self.label_dtype)  # No transform yet
         train_len = int(train_size * len(dataset))
         val_len = int(val_size * len(dataset))
         test_len = len(dataset) - train_len - val_len
