@@ -43,7 +43,7 @@ Make sure you have Jupyter Notebook installed:
 pip install notebook
 ```
 
-### 1 **Ensure Correct Project Structure**
+### 1. **Ensure Correct Project Structure**
 Your project directory should look like this:
 
 ```
@@ -65,7 +65,7 @@ MLGroup105/
 ```
 
 
-## 2️ Running an Experiment
+## 2️. Running an Experiment
 To execute an experiment:
 
 1. **Navigate to the `experiments/` directory**
@@ -87,7 +87,7 @@ To execute an experiment:
    - Train the model
    - Evaluate performance
 
-## 3️ Customizing an Experiment
+## 3️. Customizing an Experiment
 You can modify several parameters to test different configurations.
 
 ### **🔹 Changing Hyperparameters**
@@ -141,7 +141,7 @@ train_loader, val_loader, test_loader = dataset_manager.get_data_loaders(
 )
 ```
 
-## 4️⃣ Saving and Logging Results
+## 4️. Saving and Logging Results
 - **Document the experiment in Markdown**
   After running an experiment, write a structured report in Markdown at the end of the notebook. Include:
   ```markdown
