@@ -29,7 +29,7 @@ You can generate a new token by:
 
 This guide explains how to set up and execute an experiment copying the `Experiment Hidde.ipynb` Jupyter notebook. You will learn how to modify different aspects of the experiment, such as changing the model architecture, adjusting hyperparameters, and testing different dataset splits.
 
-## 1️⃣ Prerequisites
+## 1️ Prerequisites
 Before running an experiment, ensure that you have the following dependencies installed:
 
 ### **Install Dependencies**
@@ -179,7 +179,7 @@ To save (model/) experiment results:
       f.write(str(model_results))
   ```
 
-  
+
 
 
 
